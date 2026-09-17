@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PulseDesk | Calm clinic scheduling</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark">P</span><span>PulseDesk</span></a>
+    <nav><a href="#features">Features</a><a href="#how-it-helps">How it helps</a><a href="#workspace">Workspace</a></nav>
+    <button class="button button-quiet" data-scroll="#workspace">Open workspace</button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Scheduling clarity for Indian clinics</p>
+        <h1>More care. Less calendar anxiety.</h1>
+        <p class="hero-lede">PulseDesk gives front desks one calm place to book patients, protect doctor time, and handle cancellations fairly.</p>
+        <div class="hero-actions"><button class="button button-primary" data-scroll="#workspace">Start scheduling</button><a class="text-link" href="#features">See what is inside <span>→</span></a></div>
+        <div class="hero-proof"><span class="proof-dot"></span><strong>Conflict-free by design</strong><span>Every slot is checked before it is saved.</span></div>
+      </div>
+      <div class="hero-art" aria-label="A preview of the scheduling workspace">
+        <div class="window-bar"><span></span><span></span><span></span><small>Friday · 18 September</small></div>
+        <div class="preview-body"><div class="preview-heading"><div><small>GOOD MORNING</small><h3>Dr. Chen's day</h3></div><span class="mini-chip">7 appointments</span></div><div class="timeline"><div class="time">09:00</div><div class="visit active"><b>09:00 — 09:30</b><span>Ada Lovelace · annual check-in</span></div><div class="time">10:00</div><div class="visit pale"><b>10:00 — 10:45</b><span>Open slot</span></div><div class="time">11:00</div><div class="visit active second"><b>11:00 — 12:00</b><span>Grace Hopper · follow-up</span></div></div></div>
+      </div>
+    </section>
+
+    <section id="features" class="section-wrap feature-section">
+      <div class="section-intro"><p class="eyebrow">Everything the desk needs</p><h2>A steadier rhythm for the whole clinic.</h2></div>
+      <div class="feature-grid"><article><span class="feature-number">01</span><h3>Protected time</h3><p>Overlapping bookings are rejected at the moment they are made, even when two desks are working together.</p></article><article><span class="feature-number">02</span><h3>Fair cancellations</h3><p>Good-time cancellations are free. Late cancellations carry a visible ₹25 fee and keep their audit trail.</p></article><article><span class="feature-number">03</span><h3>Fast finding</h3><p>Search by patient or doctor, scan a sorted day, and move through large schedules page by page.</p></article></div>
+    </section>
+
+    <section id="how-it-helps" class="band"><div class="section-wrap band-inner"><div><p class="eyebrow">Built for the front desk</p><h2>Less time untangling. More time welcoming.</h2></div><p>For independent practices and small teams that need dependable scheduling without a heavyweight system.</p></div></section>
+
+    <section id="workspace" class="workspace section-wrap">
+      <div class="workspace-heading"><div><p class="eyebrow">Front desk workspace</p><h2>Your clinic, in view.</h2></div><div id="user-area"></div></div>
+      <div id="auth-panel" class="auth-panel"><div class="auth-copy"><span class="auth-kicker">PRIVATE WORKSPACE</span><h3>Sign in to your desk.</h3><p>Create an account for your team, then start managing appointments in seconds.</p></div><form id="auth-form"><label>Name<input name="name" placeholder="Only needed to register"></label><label>Email<input name="email" type="email" required placeholder="you@clinic.com"></label><label>Password<input name="password" type="password" minlength="8" required placeholder="8 characters minimum"></label><div class="form-actions"><button class="button button-primary" type="submit">Sign in</button><button class="button button-outline" type="button" id="register-button">Create account</button></div><p class="form-message" id="auth-message"></p></form></div>
+      <div id="dashboard" class="hidden">
+        <div class="dashboard-tools"><div class="search-wrap"><span>⌕</span><input id="search" placeholder="Search patient or doctor"></div><input id="day-filter" type="date"><select id="sort"><option value="start_at">Sort by time</option><option value="patient_name">Sort by patient</option><option value="doctor">Sort by doctor</option></select><button class="button button-primary" id="new-appointment">+ Book appointment</button></div>
+        <div class="clinic-theme"><span id="theme-icon">＋</span><div><span class="panel-kicker">CURRENT CLINIC FEEL</span><b id="theme-label">General medicine</b></div><span class="theme-note">Select another doctor to change the room</span></div>
+        <div class="dashboard-grid"><section class="schedule-panel"><div class="panel-heading"><div><span class="panel-kicker">TODAY'S VIEW</span><h3>Appointments</h3></div><span id="result-count" class="count-pill"></span></div><div id="appointments" class="appointments"></div><div class="pagination"><button class="button button-quiet" id="previous-page">← Previous</button><span id="page-label"></span><button class="button button-quiet" id="next-page">Next →</button></div></section><aside id="booking-panel" class="booking-panel hidden"><div class="panel-heading"><div><span class="panel-kicker">NEW VISIT</span><h3>Book a patient</h3></div><button class="icon-button" id="close-booking" aria-label="Close booking form">×</button></div><form id="booking-form"><label>Doctor<select name="doctor_id" id="doctor-select" required></select></label><label>Patient name<input name="patient_name" required placeholder="Full name"></label><label>Patient email<input name="patient_email" type="email" placeholder="Optional"></label><div class="two-fields"><label>Starts<input name="start_at" type="datetime-local" required></label><label>Ends<input name="end_at" type="datetime-local" required></label></div><div id="fee-preview" class="fee-preview"></div><button class="button button-primary full-width" type="submit">Confirm booking</button><p class="form-message" id="booking-message"></p></form></aside></div>
+        <div class="service-grid"><section class="service-panel"><div class="panel-heading"><div><span class="panel-kicker">MEDICINE COUNTER</span><h3>Dispense safely</h3></div><span class="service-icon">Rx</span></div><p class="service-copy">A signed or stamped prescription is required before medicines can leave the counter.</p><form id="prescription-form"><div class="two-fields"><label>Appointment ID<input name="appointment_id" type="number" required></label><label>Doctor ID<input name="doctor_id" type="number" required></label></div><label>Prescription file name<input name="file_name" required placeholder="prescription_ada.pdf"></label><label>Verification note<input name="verification_note" required placeholder="Signed by Dr. Mehta"></label><button class="button button-outline full-width" type="submit">Verify prescription</button><p class="form-message" id="prescription-message"></p></form><form id="medicine-form" class="hidden"><input name="prescription_id" type="hidden"><label>Medicine<select name="medicine_id" id="medicine-select" required></select></label><div class="two-fields"><label>Appointment ID<input name="appointment_id" type="number" required></label><label>Quantity<input name="quantity" type="number" min="1" value="1" required></label></div><button class="button button-primary full-width" type="submit">Add to bill</button><p class="form-message" id="medicine-message"></p></form></section><section class="service-panel billing-panel"><span class="panel-kicker">INDIA-FRIENDLY BILLING</span><h3>Clear money rules</h3><div class="billing-rule"><b>Consultation</b><span>Doctor-specific fee</span></div><div class="billing-rule"><b>Booking fee</b><span>₹50 per visit</span></div><div class="billing-rule"><b>Doctor cancels</b><span>100% refund</span></div><div class="billing-rule"><b>Patient cancels</b><span>15% of total is retained</span></div><p class="service-copy">Patients can move a booking to another date twice, subject to the doctor's availability.</p></section></div>
+      </div>
+    </section>
+
+    <section class="next-section section-wrap"><div><p class="eyebrow">On the roadmap</p><h2>Three good next steps.</h2></div><div class="next-list"><div><b>01</b><span>Automated SMS reminders</span></div><div><b>02</b><span>Waitlist matching</span></div><div><b>03</b><span>Calendar integrations</span></div></div></section>
+  </main>
+  <footer><div class="section-wrap"><span class="brand"><span class="brand-mark">P</span> PulseDesk</span><span>Scheduling that leaves room for care.</span></div></footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
